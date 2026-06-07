@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div id="welcome-screen" class="welcome-screen">
+    <button id="start-btn" class="start-button">Зайти</button>
+  </div>
+
+  <div id="dashboard-wrapper" class="dashboard hidden">
+    <div class="widget clock-widget">
+      <div id="clock-time">00:00:00</div>
+      <div id="clock-date">1 января, Понедельник</div>
+    </div>
+
+    <div class="widget widget--large weather-widget">
+      <h2>Погода: <span id="weather-city">...</span></h2>
+      <div class="weather-current">
+        <span id="weather-temp">--</span>°C, <span id="weather-desc">загрузка...</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="weatherChart"></canvas>
+      </div>
+    </div>
+
+    <div class="widget currency-widget">
+      <h2>Курсы валют</h2>
+      <div class="currency-rates" style="font-size: 1.4rem; line-height: 2;">
+        <p>USD: <span id="rate-rub" style="font-weight: bold; color: #10b981;">--</span></p>
+        <p>EUR: <span id="rate-eur" style="font-weight: bold; color: #10b981;">--</span></p>
+      </div>
+    </div>
+
+    <div class="widget widget--large news-widget">
+      <h2>Последние новости</h2>
+      <div id="news-list">Загрузка новостей...</div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="widgets/clock.js"></script>
+  <script src="widgets/weather.js"></script>
+  <script src="widgets/currency.js"></script>
+  <script src="widgets/news.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0f172a; /* Глубокий темный фон */
+  color: #f8fafc;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  
+  /* Запрещаем любой скролл на ТВ */
+  overflow: hidden; 
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Класс для скрытия элементов */
+.hidden {
+  display: none !important;
+}
+
+/* Стартовый экран */
+.welcome-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.start-button {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 2vh 5vw; /* Масштабируется от размера экрана */
+  font-size: 4vh;    /* Крупный текст для ТВ */
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+}
+
+/* Главная сетка дашборда */
+.dashboard {
+  display: grid;
+  /* Ровно 3 колонки одинаковой ширины */
+  grid-template-columns: repeat(3, 1fr);
+  /* Верхний ряд занимает 40% высоты, нижний — 60% */
+  grid-template-rows: 40vh 56vh; 
+  gap: 2vh; /* Отступы масштабируются */
+  padding: 2vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Базовый виджет */
+.widget {
+  background: rgba(30, 41, 59, 0.7); /* Чуть плотнее фон для контраста на ТВ */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5vh;
+  padding: 3vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden; /* Контент не вылезет наружу */
+}
+
+.widget--large {
+  grid-column: span 2;
+}
+
+/* Заголовки виджетов */
+.widget h2 {
+  font-size: 2.8vh;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 1vh;
+}
+
+/* Виджет часов */
+.clock-widget {
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e1b4b, #2e1065);
+}
+#clock-time {
+  font-size: 8vh; /* Огромные читаемые часы */
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  line-height: 1;
+}
+#clock-date {
+  font-size: 2.5vh;
+  color: #cbd5e1;
+  margin-top: 1.5vh;
+  text-transform: capitalize;
+}
+
+/* Виджет погоды */
+.weather-current {
+  font-size: 4.5vh;
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+.weather-current span {
+  color: #38bdf8;
+}
+
+/* Контейнер для графика (важно для Chart.js) */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 22vh; /* Фиксированная высота в процентах от экрана */
+}
+
+/* Виджет валют */
+.currency-rates p {
+  font-size: 3.5vh;
+  margin: 1vh 0;
+}
+
+/* Виджет новостей */
+#news-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+.news-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5vh 0;
+}
+.news-item:last-child {
+  border: none;
+}
+.news-title {
+  font-size: 2.2vh !important;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.news-source {
+  font-size: 1.6vh !important;
+  margin-top: 0.5vh;
+}
