@@ -33,39 +33,39 @@ function initWeatherChart() {
 }
 
 // Главная функция обновления погоды
-async function updateWeatherWidget() {
-  // Если график еще не создан — создаем его
-  if (!weatherChart) {
-    initWeatherChart();
-  }
+async function updateNewsWidget() {
+  const newsContainer = document.getElementById('news-list');
+  if (!newsContainer) return;
 
   try {
-    const res = await fetch(`https://wttr.in/${CONFIG.CITY}?format=j1`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=3');
+    if (!res.ok) throw new Error('Ошибка загрузки новостей');
     const data = await res.json();
 
-    // 1. Обновляем текстовые блоки
-    const current = data.current_condition[0];
-    document.getElementById('weather-city').innerText = CONFIG.CITY;
-    document.getElementById('weather-temp').innerText = current.temp_C;
-    document.getElementById('weather-desc').innerText = current.lang_ru?.[0]?.value || current.weatherDesc[0].value;
+    newsContainer.innerHTML = ''; 
 
-    // 2. Обновляем график (только если он успешно создался)
-    if (weatherChart) {
-      const hourlyData = data.weather[0].hourly;
-      const labels = hourlyData.map(h => {
-        const time = parseInt(h.time) / 100;
-        return `${time === 0 ? '00' : time}:00`;
-      });
-      const temps = hourlyData.map(h => parseInt(h.tempC));
-
-      weatherChart.data.labels = labels;
-      weatherChart.data.datasets[0].data = temps;
-      weatherChart.update();
+    const widgetTitle = newsContainer.parentElement.querySelector('h2');
+    if (widgetTitle) {
+      widgetTitle.innerText = 'Мировые новости';
     }
 
+    data.results.forEach(article => {
+      const item = document.createElement('div');
+      item.className = 'news-item';
+      // УБРАЛИ ЖЕСТКИЕ ЦВЕТА, ТЕПЕРЬ ОНИ БЕРУТСЯ ИЗ КЛАССОВ CSS
+      item.innerHTML = `
+        <div class="news-title">
+          ${article.title}
+        </div>
+        <div class="news-source">
+          Источник: ${article.news_site || 'СМИ'}
+        </div>
+      `;
+      newsContainer.appendChild(item);
+    });
+
   } catch (err) {
-    console.error('Ошибка погоды:', err);
-    document.getElementById('weather-desc').innerText = 'Ошибка сети';
+    console.error('Ошибка виджета новостей:', err);
+    newsContainer.innerHTML = '<div class="news-source">Сбой сети. Ожидание...</div>';
   }
 }
