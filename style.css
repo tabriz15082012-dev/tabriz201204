@@ -168,3 +168,14 @@ body {
   color: var(--accent-color);
 }
 
+/* Магия инверсии: перекрашивает весь сайт одной командой */
+body.light-mode {
+  filter: invert(0.9) hue-rotate(180deg);
+  background-color: #fff; /* Гарантирует, что фон станет чисто светлым */
+}
+
+/* Чтобы график и картинки не выглядели странно, возвращаем им нормальные цвета */
+body.light-mode canvas, 
+body.light-mode img {
+  filter: invert(1) hue-rotate(180deg);
+}
