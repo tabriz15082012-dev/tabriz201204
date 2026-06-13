@@ -52,24 +52,8 @@ startBtn.addEventListener('click', startDashboard);
 
 // Логика переключения светлой/темной темы
 document.getElementById('theme-toggle').addEventListener('click', () => {
-  const body = document.body;
-  const btn = document.getElementById('theme-toggle');
+  const isLight = document.body.classList.toggle('light-mode');
   
-  // Переключаем класс темы на теге body
-  body.classList.toggle('light-theme');
-  
-  // Меняем текст на кнопке в зависимости от текущей темы
-  if (body.classList.contains('light-theme')) {
-    btn.innerText = '🌙 Тёмная тема';
-  } else {
-    btn.innerText = '☀️ Светлая тема';
-  }
-  
-  // Дополнительно: если график погоды существует, обновим его цвета под тему
-  if (typeof weatherChart !== 'undefined' && weatherChart) {
-    const isLight = body.classList.contains('light-theme');
-    weatherChart.options.scales.x.ticks.color = isLight ? '#64748b' : '#94a3b8';
-    weatherChart.options.scales.y.ticks.color = isLight ? '#64748b' : '#94a3b8';
-    weatherChart.update();
-  }
+  // Просто меняем текст на кнопке
+  document.getElementById('theme-toggle').innerText = isLight ? '🌙 Тёмная тема' : '☀️ Светлая тема';
 });
